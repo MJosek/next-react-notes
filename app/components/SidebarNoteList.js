@@ -1,5 +1,6 @@
 import React from "react";
 import dayjs from 'dayjs'
+import SidebarNoteItem from "./SidebarNoteItem";
 export default function SidebarNoteList({ notes }) {
   const arr = Object.entries(notes);
   console.log(arr,'arr');
@@ -13,10 +14,7 @@ export default function SidebarNoteList({ notes }) {
         const { title, updateTime } = JSON.parse(note);
         return (
           <li key={noteId}>
-            <header className="sidebar-note-header">
-              <strong>{title}</strong>
-              <small>{dayjs(updateTime).format('YYYY-MM-DD hh:mm:ss')}</small>
-            </header>
+            <SidebarNoteItem noteId={noteId} note={JSON.parse(note)}></SidebarNoteItem>
           </li>
         );
       })}
