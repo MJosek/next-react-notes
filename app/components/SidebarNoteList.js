@@ -1,10 +1,11 @@
 import React from "react";
-import dayjs from 'dayjs'
 import SidebarNoteItem from "./SidebarNoteItem";
-export default function SidebarNoteList({ notes }) {
+import { getAllNotes } from "@/lib/redis";
+export default async function SidebarNoteList() {
+  const notes = await getAllNotes();
   const arr = Object.entries(notes);
-  console.log(arr,'arr');
-  
+  console.log(arr, "arr");
+
   if (arr.length === 0) {
     return <div>没有笔记内容！</div>;
   }
@@ -14,7 +15,10 @@ export default function SidebarNoteList({ notes }) {
         const { title, updateTime } = JSON.parse(note);
         return (
           <li key={noteId}>
-            <SidebarNoteItem noteId={noteId} note={JSON.parse(note)}></SidebarNoteItem>
+            <SidebarNoteItem
+              noteId={noteId}
+              note={JSON.parse(note)}
+            ></SidebarNoteItem>
           </li>
         );
       })}
